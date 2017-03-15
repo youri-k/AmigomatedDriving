@@ -11,10 +11,10 @@
 
     <arg name="namespace" default="web_cam" doc="namespace for all parameters and topics of this camera" />
     <arg name="camera_name" default="edimax_ic_3115w" doc="identifier for the camera model" />
-    <arg name="camera_resolution" default="sxvga" doc="name of a resolution; calib file should exist" />
-    <arg name="camera_ip" default="10.0.126.9" doc="ip address of the camera" />
+    <arg name="camera_resolution" default="qvga" doc="name of a resolution; calib file should exist" />
+    <arg name="camera_ip" default="10.0.126.8" doc="ip address of the camera" />
     <arg name="camera_login" default="admin:1234" doc="login information for the camera (user:password)" />
-    <arg name="frame_rate" default="5" doc="rate (in Hz) in which to pull new image" />
+    <arg name="frame_rate" default="-1" doc="rate (in Hz) in which to pull new image" />
     <arg name="view" default="false" doc="see rectified_image.launch" />
 
     <!-- set parameters used by web_cam_receiver from param; others should be set already -->
