@@ -1,7 +1,6 @@
 <launch>
-  <arg name="amigo_port" doc="port to use to connect to AmigoBot" default="10.0.126.11:8101" />
 
-      <arg name="amigo_port" default="10.0.126.14:8101"/>
+  <arg name="amigo_port" doc="port to use to connect to AmigoBot" default="10.0.126.11:8101" />
 
   <!-- publish tf messages for the robot -->
   <include file="$(find amigobot)/launch/publish_tfs.launch" />
