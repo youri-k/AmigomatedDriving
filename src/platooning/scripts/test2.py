@@ -10,14 +10,18 @@ import math
 
 command_velocity_publisher = None
 
-in_range = False;
+in_range = False
 cmd_vel = Twist()
+lastMarkerSignal = 0
 
 
 def callback_marker(data):
     #command_velocity_publisher.publish(data.twist.twist)
+    global in_range
+    global lastMarkerSignal
     for marker in data.markers:
         if marker.id == 101 or marker.id == 102:
+            rospy.loginfo(marker.header.stamp)
             distance_front = marker.pose.pose.position.z
             rospy.loginfo(distance_front)
             if distance_front < 0.6:
@@ -52,6 +56,9 @@ def callback_master(data):
 
 def setVel():
     command_velocity_publisher.publish(cmd_vel)
+
+def sendForHelpPlease():
+    rospy.loginfo()
 
 if __name__ == '__main__':
 

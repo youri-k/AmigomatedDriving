@@ -10,11 +10,21 @@
       <arg name="amigo_port" value="10.0.126.14:8101"/>
   </include>
 
+  <include ns="George"  file="$(find amigobot)/launch/amigobot_bringup.launch" >
+      <arg name="amigo_port" value="10.0.126.11:8101"/>
+  </include>
+
   <!-- camera and marker recognition for Emil -->
   <include ns="Emil" file="$(find web_cam_receiver)/launch/edimax_ic_3115w_rectified_standalone.launch">
     <arg name="camera_ip" value="10.0.126.8" />
   </include>
   <include ns="Emil" file="$(find aruco_with_web_cam)/launch/publish_pose_of_markers.launch" />
+
+  <!-- camera and marker recognition for George -->
+  <include ns="George" file="$(find web_cam_receiver)/launch/edimax_ic_3115w_rectified_standalone.launch">
+    <arg name="camera_ip" value="10.0.126.5" />
+  </include>
+  <include ns="George" file="$(find aruco_with_web_cam)/launch/publish_pose_of_markers.launch" />
 
   <!-- one robot can use the controller commands directly -->
   <node name="controller" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" >
