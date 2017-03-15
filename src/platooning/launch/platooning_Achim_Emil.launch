@@ -1,0 +1,20 @@
+<!-- launch two amigobots and control them with the same teleop -->
+
+<launch>
+
+  <include ns="Achim" file="$(find amigobot)/launch/amigobot_bringup.launch" >
+      <arg name="amigo_port" value="10.0.126.11:8101"/>
+  </include>
+
+  <include ns="Emil"  file="$(find amigobot)/launch/amigobot_bringup.launch" >
+      <arg name="amigo_port" value="10.0.126.15:8101"/>
+  </include>
+
+  <!-- one robot can use the controller commands directly -->
+  <node name="controller" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" >
+    <remap from="/cmd_vel" to= "/Achim/RosAria/cmd_vel"/>
+  </node>
+
+  <!-- other robot uses velocity from first -->
+  <node ns="Emil" pkg="platooning" type="follow_planner.py" name="platooning_planner" />
+</launch>
