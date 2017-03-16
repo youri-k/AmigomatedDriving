@@ -14,20 +14,24 @@ in_range = False
 cmd_vel = Twist()
 lastMarkerSignal = 0
 slave_last_seconds = []
+master_last_seconds = []
 
 
 def callback_marker(data):
     #command_velocity_publisher.publish(data.twist.twist)
+    rospy.loginfo("callback_marker")
     global in_range
     global lastMarkerSignal
     global slave_last_seconds
+    global master_last_seconds
     for marker in data.markers:
         if marker.id == 101 or marker.id == 102:
             lastMarkerSignal = marker.header.stamp
             slave_last_seconds = []
+            master_last_seconds = []
             distance_front = marker.pose.pose.position.z
             rospy.loginfo(distance_front)
-            if distance_front < 0.6:
+            if distance_front < 0.6 and distance_front > 0.6:
                 in_range = True
                 rospy.loginfo("in_range = true")
                 # cmd_vel.linear.x = pow((distance_front - 0.4) / 2,3) * 20
@@ -59,11 +63,14 @@ def callback_master(data):
 
 def setVel():
     global slave_last_seconds
-    if rospy.get_rostime()-lastMarkerSignal > 4:
-        sendForHelpPlease()
-    else:
-        slave_last_seconds.append([rospy.get_rostime(), cmd_vel])
-        command_velocity_publisher.publish(cmd_vel)
+    global lastMarkerSignal
+    command_velocity_publisher.publish(cmd_vel)
+    rospy.loginfo("Time = {}".format(rospy.get_time()-lastMarkerSignal.secs))
+    # if rospy.get_time()-lastMarkerSignal.secs > 3:
+    #     sendForHelpPlease()
+    # else:
+    #     slave_last_seconds.append([rospy.get_rostime(), cmd_vel])
+    #     command_velocity_publisher.publish(cmd_vel)
 
 def sendForHelpPlease():
     global slave_last_seconds

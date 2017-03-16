@@ -24,7 +24,7 @@ def callback_marker(data):
             rospy.loginfo(marker.header.stamp)
             distance_front = marker.pose.pose.position.z
             rospy.loginfo(distance_front)
-            if distance_front < 0.6:
+            if distance_front < 0.6 and distance_front > 0.4:
                 in_range = True
                 rospy.loginfo("in_range = true")
                 # cmd_vel.linear.x = pow((distance_front - 0.4) / 2,3) * 20
