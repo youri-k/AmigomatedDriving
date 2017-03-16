@@ -41,7 +41,7 @@
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
 
-  <depend>navigation</depend>
+  <depend>amcl</depend>
   <depend>pointcloud_to_laserscan</depend>
   <depend>teleop_twist_keyboard</depend>
   <depend>slam_gmapping</depend>
